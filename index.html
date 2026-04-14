@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jose Aguero — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --surface: #16161f;
+  --surface2: #1e1e2a;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent: #6c63ff;
+  --accent2: #a78bfa;
+  --accent3: #38bdf8;
+  --text: #f0eff8;
+  --text2: #9993b8;
+  --text3: #5c587a;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --pink: #f472b6;
+  --red: #f87171;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --r: 12px;
+  --r-lg: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 60px;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--accent2); }
+.nav-links { display: flex; gap: 0; }
+.nav-link {
+  font-size: 13px; font-weight: 400; color: var(--text2);
+  text-decoration: none; padding: 8px 16px; border-radius: 8px;
+  transition: all 0.2s; cursor: pointer; background: none; border: none;
+}
+.nav-link:hover, .nav-link.active { color: var(--text); background: var(--surface); }
+.nav-cta {
+  font-size: 13px; font-weight: 500;
+  background: var(--accent); color: #fff;
+  border: none; padding: 8px 18px; border-radius: 8px;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── PAGES ── */
+.page { display: none; padding-top: 60px; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - 60px);
+  display: flex; align-items: center;
+  padding: 4rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 40%, rgba(108,99,255,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(56,189,248,0.08) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.03;
+  background-image: linear-gradient(var(--border2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border2) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 780px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent2); background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.2); padding: 6px 14px; border-radius: 100px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 88px);
+  font-weight: 800; line-height: 0.95;
+  letter-spacing: -0.04em;
+  animation: fadeUp 0.6s 0.1s ease both;
+  margin-bottom: 1.5rem;
+}
+.hero-name .line2 { color: var(--accent2); display: block; }
+.hero-desc {
+  font-size: 18px; font-weight: 300; color: var(--text2);
+  line-height: 1.7; max-width: 520px;
+  animation: fadeUp 0.6s 0.2s ease both;
+  margin-bottom: 2.5rem;
+}
+.hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.btn-hero {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  padding: 12px 24px; border-radius: 10px; cursor: pointer;
+  text-decoration: none; border: none; transition: all 0.2s;
+}
+.btn-hero-primary { background: var(--accent); color: #fff; }
+.btn-hero-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+.btn-hero-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border2); }
+.btn-hero-secondary:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-2px); }
+.hero-stats {
+  position: absolute; right: 2.5rem; bottom: 4rem; z-index: 1;
+  display: flex; flex-direction: column; gap: 12px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.stat-pill {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px 20px;
+  display: flex; flex-direction: column; gap: 2px;
+  min-width: 160px;
+}
+.stat-number { font-family: var(--font-display); font-size: 28px; font-weight: 700; }
+.stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION COMMON ── */
+.section { padding: 5rem 2.5rem; max-width: 1000px; margin: 0 auto; }
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700; letter-spacing: -0.03em;
+  margin-bottom: 3rem; line-height: 1.1;
+}
+
+/* ── EXPERIENCE PAGE ── */
+.exp-timeline { position: relative; }
+.exp-timeline::before {
+  content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
+  width: 1px; background: var(--border2);
+}
+.exp-item {
+  display: flex; gap: 2rem; margin-bottom: 3rem;
+  opacity: 0; transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+.exp-item.visible { opacity: 1; transform: none; }
+.exp-dot {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: var(--surface2); border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--accent2); flex-shrink: 0; position: relative; z-index: 1;
+}
+.exp-body { flex: 1; }
+.exp-meta { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 6px; flex-wrap: wrap; }
+.exp-role { font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+.exp-date-badge {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  background: rgba(108,99,255,0.15); color: var(--accent2);
+  border: 1px solid rgba(108,99,255,0.25); padding: 4px 10px; border-radius: 100px;
+  white-space: nowrap;
+}
+.exp-company { font-size: 14px; color: var(--text2); margin-bottom: 14px; }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exp-bullets li {
+  font-size: 14px; color: var(--text2); line-height: 1.6;
+  padding-left: 18px; position: relative;
+}
+.exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 5px; }
+.exp-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tech-tag {
+  font-size: 11px; font-weight: 500; padding: 4px 10px;
+  border-radius: 6px; background: var(--surface2);
+  border: 1px solid var(--border); color: var(--text2);
+}
+
+/* ── PROJECTS PAGE ── */
+.project-filter { display: flex; gap: 8px; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.filter-btn {
+  font-family: var(--font-body); font-size: 12px; font-weight: 500;
+  padding: 7px 16px; border-radius: 100px; cursor: pointer;
+  border: 1px solid var(--border2); background: transparent; color: var(--text2);
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.project-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 1.75rem;
+  transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+}
+.project-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(108,99,255,0.05) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.project-card:hover::before { opacity: 1; }
+.project-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+.project-type {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 4px 10px; border-radius: 100px;
+}
+.type-competition { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+.type-kaggle { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+.type-academic { background: rgba(56,189,248,0.15); color: var(--accent3); border: 1px solid rgba(56,189,248,0.3); }
+.project-status {
+  font-size: 11px; color: var(--text3); font-style: italic;
+}
+.project-card h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+.project-card p { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 1rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.project-highlight {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(108,99,255,0.08) 100%);
+  border-color: rgba(108,99,255,0.3);
+}
+.project-highlight-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.project-metrics { display: flex; flex-direction: column; gap: 12px; }
+.metric {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1rem 1.25rem;
+}
+.metric-value { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--accent2); }
+.metric-label { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* ── SKILLS PAGE ── */
+.skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.skill-category {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 1.75rem;
+  transition: all 0.3s;
+}
+.skill-category:hover { border-color: var(--border2); }
+.skill-cat-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+.skill-cat-icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.icon-purple { background: rgba(108,99,255,0.2); }
+.icon-blue { background: rgba(56,189,248,0.2); }
+.icon-green { background: rgba(52,211,153,0.2); }
+.icon-amber { background: rgba(251,191,36,0.2); }
+.skill-cat-name { font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+.skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-chip {
+  font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: 8px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); cursor: default;
+  transition: all 0.2s; position: relative;
+}
+.skill-chip:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-1px); }
+.skill-proficiency {
+  display: flex; align-items: center; gap: 3px; margin-top: 4px;
+}
+.dot { width: 5px; height: 5px; border-radius: 50%; }
+.dot.filled { background: var(--accent2); }
+.dot.empty { background: var(--border2); }
+.skill-chip-inner { display: flex; flex-direction: column; gap: 4px; }
+.certs-row { grid-column: 1/-1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cert-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 14px;
+}
+.cert-icon { font-size: 28px; }
+.cert-name { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.cert-issuer { font-size: 12px; color: var(--text2); }
+
+/* ── ABOUT PAGE ── */
+.about-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+.about-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden; position: sticky; top: 80px;
+}
+.about-card-header {
+  padding: 2rem; text-align: center;
+  background: linear-gradient(135deg, rgba(108,99,255,0.15) 0%, rgba(56,189,248,0.1) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.about-avatar {
+  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent3));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 28px; font-weight: 700; color: #fff;
+}
+.about-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.about-title { font-size: 13px; color: var(--text2); }
+.about-card-body { padding: 1.5rem; }
+.about-info-row { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.about-info-row:last-child { border-bottom: none; }
+.about-info-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; min-width: 70px; }
+.about-info-value { font-size: 13px; color: var(--text); }
+.about-info-value a { color: var(--accent2); text-decoration: none; }
+.about-info-value a:hover { text-decoration: underline; }
+.about-prose h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-bottom: 1rem; }
+.about-prose p { font-size: 15px; color: var(--text2); line-height: 1.8; margin-bottom: 1.25rem; }
+.about-highlight {
+  background: var(--surface); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--r) var(--r) 0; padding: 1rem 1.25rem;
+  margin: 1.5rem 0; font-size: 15px; color: var(--text2); line-height: 1.7; font-style: italic;
+}
+.timeline-mini { margin-top: 2rem; }
+.timeline-mini-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+.timeline-mini-item:last-child { border-bottom: none; }
+.timeline-dot-mini {
+  width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+  flex-shrink: 0; margin-top: 5px;
+}
+.timeline-mini-content h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.timeline-mini-content p { font-size: 12px; color: var(--text2); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); padding: 2rem 2.5rem;
+  text-align: center; font-size: 12px; color: var(--text3);
+  background: var(--bg2);
+}
+footer span { color: var(--accent2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-highlight-inner { grid-template-columns: 1fr; }
+  .skills-layout { grid-template-columns: 1fr; }
+  .about-layout { grid-template-columns: 1fr; }
+  .about-card { position: static; }
+  .hero-stats { display: none; }
+  .hero-name { font-size: 44px; }
+  nav { padding: 0 1.25rem; }
+  .section { padding: 3rem 1.25rem; }
+  .certs-row { grid-template-columns: 1fr; }
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.fade-in {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible { opacity: 1; transform: none; }
+.fade-in:nth-child(2) { transition-delay: 0.1s; }
+.fade-in:nth-child(3) { transition-delay: 0.2s; }
+.fade-in:nth-child(4) { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">Jose <span>Aguero</span></a>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')" id="nav-home">Home</button>
+    <button class="nav-link" onclick="showPage('experience')" id="nav-experience">Experience</button>
+    <button class="nav-link" onclick="showPage('projects')" id="nav-projects">Projects</button>
+    <button class="nav-link" onclick="showPage('skills')" id="nav-skills">Skills</button>
+    <button class="nav-link" onclick="showPage('about')" id="nav-about">About</button>
+  </div>
+  <a href="mailto:Kromaaguero@gmail.com" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>Available Spring 2026</span>
+      </div>
+      <h1 class="hero-name">
+        Jose<br>
+        <span class="line2">Aguero.</span>
+      </h1>
+      <p class="hero-desc">
+        MIS student at the University of Oklahoma building at the intersection of AI, data analytics, and enterprise systems. I turn complex data into real business decisions.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-hero btn-hero-primary" onclick="showPage('projects')">View my work ↗</button>
+        <button class="btn-hero btn-hero-secondary" onclick="showPage('experience')">My experience</button>
+        <a class="btn-hero btn-hero-secondary" href="mailto:Kromaaguero@gmail.com">Say hello</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <span class="stat-number" style="color:var(--accent2)">2</span>
+        <span class="stat-label">Internship projects</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-number" style="color:var(--green)">2</span>
+        <span class="stat-label">Competitions</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-number" style="color:var(--amber)">8+</span>
+        <span class="stat-label">Technologies</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick nav cards -->
+  <div style="max-width:1000px;margin:0 auto;padding:0 2.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+    <div class="project-card fade-in" onclick="showPage('experience')" style="text-align:center;padding:2rem 1.5rem;">
+      <div style="font-size:32px;margin-bottom:12px">💼</div>
+      <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:6px">Experience</h3>
+      <p style="font-size:13px;color:var(--text2)">Bell Flight internship & AI hackathon</p>
+    </div>
+    <div class="project-card fade-in" onclick="showPage('projects')" style="text-align:center;padding:2rem 1.5rem;">
+      <div style="font-size:32px;margin-bottom:12px">🚀</div>
+      <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:6px">Projects</h3>
+      <p style="font-size:13px;color:var(--text2)">Case competitions & Kaggle ML</p>
+    </div>
+    <div class="project-card fade-in" onclick="showPage('skills')" style="text-align:center;padding:2rem 1.5rem;">
+      <div style="font-size:32px;margin-bottom:12px">⚡</div>
+      <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:6px">Skills</h3>
+      <p style="font-size:13px;color:var(--text2)">Python, Azure AI, ML tools & more</p>
+    </div>
+    <div class="project-card fade-in" onclick="showPage('about')" style="text-align:center;padding:2rem 1.5rem;">
+      <div style="font-size:32px;margin-bottom:12px">👋</div>
+      <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:6px">About</h3>
+      <p style="font-size:13px;color:var(--text2)">Background, education & contact</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EXPERIENCE ══ -->
+<div class="page" id="page-experience">
+  <div class="section">
+    <p class="section-label">Work history</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-timeline">
+
+      <div class="exp-item">
+        <div class="exp-dot">BF</div>
+        <div class="exp-body">
+          <div class="exp-meta">
+            <p class="exp-role">Military IT Intern</p>
+            <span class="exp-date-badge">Jun – Aug 2025</span>
+          </div>
+          <p class="exp-company">Bell Flight (Textron) · Hurst, TX</p>
+          <ul class="exp-bullets">
+            <li>Designed a multi-agent GenAI classification system using Azure OpenAI and Semantic Kernel to classify and cluster ServiceNow tickets against leadership projects</li>
+            <li>Developed a custom AI plugin generating structured JSON outputs with classifications, reasoning, and multi-level clustering labels</li>
+            <li>Applied K-means, DBSCAN, and Hierarchical clustering to identify patterns across related tickets with auto-generated human-readable cluster names</li>
+            <li>Delivered a working proof-of-concept demonstrating autonomous ticket monitoring, validation, and sub-clustering for enterprise IT workflows</li>
+          </ul>
+          <div class="exp-tech">
+            <span class="tech-tag">Azure OpenAI</span>
+            <span class="tech-tag">Semantic Kernel</span>
+            <span class="tech-tag">K-means</span>
+            <span class="tech-tag">DBSCAN</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">ServiceNow</span>
+            <span class="tech-tag">JSON</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-dot" style="color:var(--pink)">AH</div>
+        <div class="exp-body">
+          <div class="exp-meta">
+            <p class="exp-role">Hackathon Developer</p>
+            <span class="exp-date-badge" style="background:rgba(244,114,182,0.1);color:var(--pink);border-color:rgba(244,114,182,0.25)">Jul 2025</span>
+          </div>
+          <p class="exp-company">AI Hackathon — Bell Flight (Textron) + Microsoft</p>
+          <ul class="exp-bullets">
+            <li>Built a multi-agent AI architecture with orchestrator and task-specific agents for enterprise document and request analysis</li>
+            <li>Deployed services on Azure Foundry leveraging Azure OpenAI for classification, routing, and validation logic</li>
+            <li>Packaged agents with Docker and created a plug-and-play system for scalable enterprise AI assistants</li>
+            <li>Collaborated with cross-functional teams to align agent goals with real-world business objectives</li>
+          </ul>
+          <div class="exp-tech">
+            <span class="tech-tag">Azure Foundry</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">Multi-agent AI</span>
+            <span class="tech-tag">Azure OpenAI</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROJECTS ══ -->
+<div class="page" id="page-projects">
+  <div class="section">
+    <p class="section-label">Selected work</p>
+    <h2 class="section-title">Projects</h2>
+
+    <div class="project-filter">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+      <button class="filter-btn" onclick="filterProjects('competition', this)">Competitions</button>
+      <button class="filter-btn" onclick="filterProjects('ml', this)">Machine Learning</button>
+      <button class="filter-btn" onclick="filterProjects('analytics', this)">Analytics</button>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+
+      <!-- OGE FEATURED -->
+      <div class="project-card project-highlight fade-in" data-tags="competition analytics">
+        <div class="project-highlight-inner">
+          <div>
+            <div class="project-card-top" style="margin-bottom:1rem">
+              <span class="project-type type-competition">Case Competition</span>
+              <span class="project-status">Spring 2026</span>
+            </div>
+            <h3>OG&E Access Governance</h3>
+            <p>Analyzed 80,000+ physical badge events and SailPoint identity data to identify entitlement sprawl, ungoverned access, and anomalous behavior across OG&E's enterprise. Built Python coverage models and an interactive risk simulator. Presented a least-privilege governance proposal to industry judges as part of team Grid Guardians.</p>
+            <div class="project-tags" style="margin-top:1rem">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">Identity & Access Mgmt</span>
+              <span class="tech-tag">SailPoint</span>
+              <span class="tech-tag">Data Analysis</span>
+            </div>
+          </div>
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-value">80K+</div>
+              <div class="metric-label">Badge events analyzed</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">80%</div>
+              <div class="metric-label">Workforce coverage modeled</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">5</div>
+              <div class="metric-label">Team members (Grid Guardians)</div>
+            </div>
+            <div style="font-size:12px;color:var(--text3);font-style:italic;padding:0.5rem 0">Results pending · Competition Apr 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kaggle -->
+      <div class="project-card fade-in" data-tags="ml analytics">
+        <div class="project-card-top">
+          <span class="project-type type-kaggle">Kaggle Competition</span>
+          <span class="project-status">Spring 2026</span>
+        </div>
+        <h3>Forest Cover Type Prediction</h3>
+        <p>Built a multi-model classification pipeline on a 500,000+ row dataset to predict forest cover type across 7 classes. Applied feature engineering, cross-validation, and compared multiple algorithms to optimize accuracy.</p>
+        <div class="project-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">scikit-learn</span>
+          <span class="tech-tag">Random Forest</span>
+          <span class="tech-tag">KNN</span>
+          <span class="tech-tag">SVM</span>
+        </div>
+        <div class="project-pending" style="display:inline-block;margin-top:14px;font-size:11px;color:var(--text3);background:var(--surface2);padding:4px 10px;border-radius:6px;border:1px solid var(--border)">Results pending · BAD 4013</div>
+      </div>
+
+      <!-- Bell Flight project card -->
+      <div class="project-card fade-in" data-tags="ml">
+        <div class="project-card-top">
+          <span class="project-type" style="background:rgba(56,189,248,0.15);color:var(--accent3);border:1px solid rgba(56,189,248,0.3)">Internship</span>
+          <span class="project-status">Summer 2025</span>
+        </div>
+        <h3>ServiceNow Ticket Classifier</h3>
+        <p>Multi-agent GenAI system using Azure OpenAI + Semantic Kernel to auto-classify and cluster IT tickets. Reduced manual triage effort with autonomous routing and sub-clustering for enterprise workflows.</p>
+        <div class="project-tags">
+          <span class="tech-tag">Azure OpenAI</span>
+          <span class="tech-tag">Semantic Kernel</span>
+          <span class="tech-tag">DBSCAN</span>
+          <span class="tech-tag">Hierarchical Clustering</span>
+        </div>
+      </div>
+
+      <!-- Hackathon card -->
+      <div class="project-card fade-in" data-tags="ml">
+        <div class="project-card-top">
+          <span class="project-type" style="background:rgba(244,114,182,0.15);color:var(--pink);border:1px solid rgba(244,114,182,0.3)">Hackathon</span>
+          <span class="project-status">Jul 2025</span>
+        </div>
+        <h3>Enterprise AI Agent System</h3>
+        <p>Built a multi-agent AI architecture at Bell Flight × Microsoft hackathon. Orchestrator + task-specific agents for document analysis. Deployed on Azure Foundry with Docker packaging for plug-and-play enterprise deployment.</p>
+        <div class="project-tags">
+          <span class="tech-tag">Azure Foundry</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Multi-agent</span>
+          <span class="tech-tag">Azure OpenAI</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SKILLS ══ -->
+<div class="page" id="page-skills">
+  <div class="section">
+    <p class="section-label">Technical toolkit</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-layout">
+
+      <div class="skill-category fade-in">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon icon-purple">🐍</div>
+          <p class="skill-cat-name">Programming</p>
+        </div>
+        <div class="skill-list">
+          <div class="skill-chip">
+            <div class="skill-chip-inner">
+              <span>Python</span>
+              <div class="skill-proficiency">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skill-chip">
+            <div class="skill-chip-inner">
+              <span>C#</span>
+              <div class="skill-proficiency">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div><div class="dot empty"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skill-chip">
+            <div class="skill-chip-inner">
+              <span>SQL</span>
+              <div class="skill-proficiency">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div><div class="dot empty"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skill-chip">
+            <div class="skill-chip-inner">
+              <span>HTML</span>
+              <div class="skill-proficiency">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot empty"></div><div class="dot empty"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-category fade-in">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon icon-blue">🤖</div>
+          <p class="skill-cat-name">AI / ML</p>
+        </div>
+        <div class="skill-list">
+          <span class="skill-chip">Azure OpenAI</span>
+          <span class="skill-chip">Semantic Kernel</span>
+          <span class="skill-chip">Prompt Engineering</span>
+          <span class="skill-chip">Qdrant</span>
+          <span class="skill-chip">scikit-learn</span>
+          <span class="skill-chip">K-means</span>
+          <span class="skill-chip">DBSCAN</span>
+          <span class="skill-chip">Random Forest</span>
+        </div>
+      </div>
+
+      <div class="skill-category fade-in">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon icon-green">📊</div>
+          <p class="skill-cat-name">Data & Analytics</p>
+        </div>
+        <div class="skill-list">
+          <span class="skill-chip">Pandas</span>
+          <span class="skill-chip">Power BI</span>
+          <span class="skill-chip">Tableau</span>
+          <span class="skill-chip">Excel</span>
+          <span class="skill-chip">Data Mining</span>
+          <span class="skill-chip">Azure Studio</span>
+        </div>
+      </div>
+
+      <div class="skill-category fade-in">
+        <div class="skill-cat-header">
+          <div class="skill-cat-icon icon-amber">☁️</div>
+          <p class="skill-cat-name">Cloud & DevOps</p>
+        </div>
+        <div class="skill-list">
+          <span class="skill-chip">Azure Foundry</span>
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">Multi-agent Systems</span>
+          <span class="skill-chip">ServiceNow</span>
+        </div>
+      </div>
+
+      <div class="certs-row">
+        <div class="cert-card fade-in">
+          <div class="cert-icon">🔐</div>
+          <div>
+            <p class="cert-name">Google Cybersecurity Certificate</p>
+            <p class="cert-issuer">Google · Completed</p>
+          </div>
+        </div>
+        <div class="cert-card fade-in">
+          <div class="cert-icon">📈</div>
+          <div>
+            <p class="cert-name">Business Intelligence & Analytics</p>
+            <p class="cert-issuer">University of Oklahoma</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="page" id="page-about">
+  <div class="section">
+    <div class="about-layout">
+      <div>
+        <div class="about-card">
+          <div class="about-card-header">
+            <div class="about-avatar">JA</div>
+            <p class="about-name">Jose Aguero</p>
+            <p class="about-title">MIS Student · AI & Data Enthusiast</p>
+          </div>
+          <div class="about-card-body">
+            <div class="about-info-row">
+              <span class="about-info-label">School</span>
+              <span class="about-info-value">University of Oklahoma</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Major</span>
+              <span class="about-info-value">Management Information Systems</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Grad</span>
+              <span class="about-info-value">Spring 2026</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Location</span>
+              <span class="about-info-value">Norman, OK</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Email</span>
+              <span class="about-info-value"><a href="mailto:Kromaaguero@gmail.com">Kromaaguero@gmail.com</a></span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">Phone</span>
+              <span class="about-info-value">405-430-9914</span>
+            </div>
+            <div class="about-info-row">
+              <span class="about-info-label">LinkedIn</span>
+              <span class="about-info-value"><a href="https://www.linkedin.com/in/jose-y-aguero1/" target="_blank">jose-y-aguero1</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-prose">
+        <h3>Hey, I'm Jose.</h3>
+        <p>I'm a Management Information Systems student at the University of Oklahoma's Michael F. Price College of Business, graduating in Spring 2026. I'm passionate about applying AI and data analytics to solve real enterprise problems.</p>
+        <div class="about-highlight">
+          "I believe the best technology doesn't just process data — it gives people clarity to make better decisions."
+        </div>
+        <p>My experience spans from building multi-agent AI systems at Bell Flight to analyzing thousands of identity records for an energy company's cybersecurity posture. I love working at the intersection of business strategy, data, and emerging AI tools.</p>
+        <p>Outside of work, I serve as Secretary of Sigma Lambda Beta and am an active member of OU's Multicultural Business Program, where I've had the chance to visit companies across the US and build my professional network.</p>
+
+        <div class="timeline-mini" style="margin-top:2.5rem">
+          <p class="section-label" style="margin-bottom:1.25rem">Timeline</p>
+          <div class="timeline-mini-item">
+            <div class="timeline-dot-mini" style="background:var(--green)"></div>
+            <div class="timeline-mini-content">
+              <h4>OGE Case Competition + Kaggle</h4>
+              <p>Spring 2026 · Data analytics & ML competitions</p>
+            </div>
+          </div>
+          <div class="timeline-mini-item">
+            <div class="timeline-dot-mini"></div>
+            <div class="timeline-mini-content">
+              <h4>Bell Flight AI Hackathon</h4>
+              <p>July 2025 · Bell Flight × Microsoft</p>
+            </div>
+          </div>
+          <div class="timeline-mini-item">
+            <div class="timeline-dot-mini"></div>
+            <div class="timeline-mini-content">
+              <h4>Military IT Internship</h4>
+              <p>Summer 2025 · Bell Flight, Hurst TX</p>
+            </div>
+          </div>
+          <div class="timeline-mini-item">
+            <div class="timeline-dot-mini" style="background:var(--accent2)"></div>
+            <div class="timeline-mini-content">
+              <h4>Started at University of Oklahoma</h4>
+              <p>2022 · BBA in Management Information Systems</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leadership -->
+        <div style="margin-top:2.5rem">
+          <p class="section-label" style="margin-bottom:1.25rem">Leadership</p>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden">
+            <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+                <div>
+                  <p style="font-size:14px;font-weight:500;margin-bottom:3px">Sigma Lambda Beta International Fraternity</p>
+                  <p style="font-size:12px;color:var(--text2)">Secretary · Norman, OK</p>
+                </div>
+                <span style="font-size:11px;color:var(--text3)">Nov 2024 – Present</span>
+              </div>
+            </div>
+            <div style="padding:1.25rem 1.5rem">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+                <div>
+                  <p style="font-size:14px;font-weight:500;margin-bottom:3px">Multicultural Business Program</p>
+                  <p style="font-size:12px;color:var(--text2)">Associate · Norman, OK</p>
+                </div>
+                <span style="font-size:11px;color:var(--text3)">Aug 2024 – Present</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Built with care · Jose Aguero · <span>Kromaaguero@gmail.com</span> · Norman, OK
+</footer>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  setTimeout(triggerAnimations, 100);
+}
+
+function filterProjects(tag, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#projects-grid .project-card').forEach(card => {
+    if (tag === 'all') {
+      card.style.display = '';
+    } else {
+      const tags = card.dataset.tags || '';
+      card.style.display = tags.includes(tag) ? '' : 'none';
+    }
+  });
+}
+
+function triggerAnimations() {
+  document.querySelectorAll('.page.active .fade-in, .page.active .exp-item').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 80);
+  });
+}
+
+triggerAnimations();
+</script>
+</body>
+</html>
